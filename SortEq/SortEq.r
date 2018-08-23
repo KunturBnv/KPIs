@@ -17,8 +17,26 @@ dataIn$Eq.Padre[dataIn$Tipo.de.Objeto=="T"] <- dataIn$Cod..Equipo[dataIn$Tipo.de
 dataIn$Eq.Padre[dataIn$Tipo.de.Objeto=="F"] <- dataIn$Equipo.Superior[dataIn$Tipo.de.Objeto=="F"]
 dataIn$Sistema[dataIn$Tipo.de.Objeto=="F"] <- dataIn$Cod..Equipo[dataIn$Tipo.de.Objeto=="F"]
 
+dataIn$Comp[dataIn$Tipo.de.Objeto=="R"] <- dataIn$Cod..Equipo[dataIn$Tipo.de.Objeto=="R"]
 
-SortOf <- function()
+
+for (i in dataIn[,3]) {
   
+  dataIn[dataIn[,3]=="E",5] = dataIn[dataIn[,3]=="E",2]
+  
+}
+
+
+SortOf <- function(x) {
+  x.row.names <- names(x)
+  names(x) <- c("UT","Cod.Eq","Tipo.Eq","Eq.sup")
+  i = 0
+  for (m in x[,3]) {
+    i++
+    print(i)
+  }
+  
+  
+}  
   
 #dataOut <- sortOf(dataIn)

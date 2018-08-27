@@ -1,7 +1,14 @@
-setwd("C:/Users/local_adm/Desktop/CMMS/bymyown/")
+#
+setwd("C:\Users\johan\Documents\GitProjects\KPIs\SortEq")
+
+library(readxl)
+
 # change a categorical variable to numeric dummie variable
 #getting data
-dataIn <- read.csv2("dataIn1.csv", na.strings = "0",stringsAsFactors = FALSE)
+dataIn <- read.csv("database/dataIn1.csv", na.strings = "0",stringsAsFactors = FALSE)
+
+#dataInExcel <- read_xlsx("database/BV PRD 10.07.2018.xlsx", col_types = "text")
+#dataOutExcel <- write
 
 SortOf <- function(x) {
   x[is.na(x)] <- "0"
@@ -16,8 +23,8 @@ SortOf <- function(x) {
   #Equipo Padre E,T,V
   x[x[,4] =="0" & (x[,3] =="E" | x[,3] =="V" | x[,3] =="T"),5] <- x[x[,4] =="0" & (x[,3] =="E" | x[,3] =="V" | x[,3] =="T"),2]
   #Sistema F
-  x[x[,3]=="F",6] <- x[x[,3]=="F",2]
-  x[x[,3]=="F",5] <- x[x[,3]=="F",4]
+  #x[x[,3]=="F",6] <- x[x[,3]=="F",2]
+  #x[x[,3]=="F",5] <- x[x[,3]=="F",4]
   #Comp R
   x[,8] <- as.character(x[match(x[,4],x[,2]),3])
   x[,9] <- as.character(x[match(x[,4],x[,2]),4])
@@ -35,6 +42,6 @@ SortOf <- function(x) {
   
 dataOut <- SortOf(dataIn)
 
-write.csv2(dataOut,"dataOut1.CSV")
+write.csv2(dataOut,"database/dataOut1.CSV")
 
 #dataOut <- sortOf(dataIn)

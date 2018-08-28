@@ -2,12 +2,14 @@
 setwd("C:\Users\johan\Documents\GitProjects\KPIs\SortEq")
 
 library(readxl)
+library(openxlsx)
 
 # change a categorical variable to numeric dummie variable
 #getting data
 dataIn <- read.csv("database/dataIn1.csv", na.strings = "0",stringsAsFactors = FALSE)
 
-#dataInExcel <- read_xlsx("database/BV PRD 10.07.2018.xlsx", col_types = "text")
+dataInExcel <- read_xlsx("database/BV PRD 10.07.2018.xlsx", index , col_types = "text")
+
 #dataOutExcel <- write
 
 SortOf <- function(x) {

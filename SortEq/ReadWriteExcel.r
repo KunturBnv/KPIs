@@ -1,29 +1,19 @@
 
 setwd("GitProjects/KPIs/SortEq/")
 
-library(readxl)
-
-
-dataInExcel <- read_xlsx("database/REPORTE AL 20.08.18.xlsx", col_types = "text")
-View(dataInExcel)
-
-library(openxlsx)
-
-wb1 <- loadWorkbook("database/REPORTE_AL_20.08.18.xlsx")
-
-sheet_names <- names(wb1)
-
-Sheet1 <- read.xlsx(wb1,sheet_names[1])
-
-names_sheet1 <- names(Sheet1)
-dataIn <- Sheet1[,c("Ubicac.técnica","Equipo","Tipo.de.equipo","Equipo.superior")]
-
+#function
 SortOf <- function(x) {
   x[is.na(x)] <- "0"
   x[,5] <- "0"
   x[,6] <- "0"
   x[,7] <- "0"
   x[,8] <- "0"
+  x[,1] <- as.character(x[,1])
+  x[,2] <- as.character(x[,2])
+  x[,3] <- as.character(x[,3])
+  x[,4] <- as.character(x[,4])
+  
+  
   colnames(x)[5] <- "Eq.padre"
   colnames(x)[6] <- "Sistema"
   colnames(x)[7] <- "Comp"
@@ -31,8 +21,8 @@ SortOf <- function(x) {
   #Equipo Padre E,T,V
   x[x[,4] =="0" & (x[,3] =="E" | x[,3] =="V" | x[,3] =="T"),5] <- x[x[,4] =="0" & (x[,3] =="E" | x[,3] =="V" | x[,3] =="T"),2]
   #Sistema F
-  #x[x[,3]=="F",6] <- x[x[,3]=="F",2]
-  #x[x[,3]=="F",5] <- x[x[,3]=="F",4]
+  x[x[,3]=="F",6] <- x[x[,3]=="F",2]
+  x[x[,3]=="F",5] <- x[x[,3]=="F",4]
   #Comp R
   x[,8] <- as.character(x[match(x[,4],x[,2]),3])
   x[,9] <- as.character(x[match(x[,4],x[,2]),4])
@@ -48,6 +38,33 @@ SortOf <- function(x) {
   return <- x
 }
 
-dataOut <- SortOf(dataIn)
+library(readxl)
 
-sheet1_out <- data.frame(dataOut[,-4:0],Sheet1)
+
+dataInExcel <- read_xlsx("database/REPORTE AL 20.08.18.xlsx", col_types = "text")
+View(dataInExcel)
+
+
+
+library(openxlsx)
+
+wb1 <- loadWorkbook("database/REPORTE_AL_20.08.18.xlsx")
+
+sheet_names <- names(wb1)
+
+Sheet1 <- read.xlsx(wb1,sheet_names[1])
+
+names_sheet1 <- names(Sheet1)
+dataInexcel <- Sheet1[,c("Ubicac.técnica","Equipo","Tipo.de.equipo","Equipo.superior")]
+
+dataOutexcel <- SortOf(dataInexcel)
+
+sheet1_out <- data.frame(dataOutexcel[,-4:0],Sheet1)
+
+addWorksheet(wb1,"newsheet")
+
+writeData(wb1,"newsheet",sheet1_out,rowNames = FALSE)
+
+saveWorkbook(wb1, "database/REPORTE_AL_20.08.18v2.xlsx", overwrite = TRUE)
+
+

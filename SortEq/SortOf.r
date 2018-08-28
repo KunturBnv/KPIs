@@ -3,7 +3,8 @@ setwd("C:\Users\johan\Documents\GitProjects\KPIs\SortEq")
 
 # change a categorical variable to numeric dummie variable
 #getting data
-dataIn <- read.csv("database/dataIn1.csv", na.strings = "0",stringsAsFactors = FALSE)
+#dataIn <- read.csv("database/dataIn1.csv", na.strings = "0",stringsAsFactors = FALSE)
+dataIn <- read.csv("database/dataIn.csv", na.strings = "0",stringsAsFactors = FALSE)
 
 
 #dataOutExcel <- write
@@ -21,8 +22,8 @@ SortOf <- function(x) {
   #Equipo Padre E,T,V
   x[x[,4] =="0" & (x[,3] =="E" | x[,3] =="V" | x[,3] =="T"),5] <- x[x[,4] =="0" & (x[,3] =="E" | x[,3] =="V" | x[,3] =="T"),2]
   #Sistema F
-  #x[x[,3]=="F",6] <- x[x[,3]=="F",2]
-  #x[x[,3]=="F",5] <- x[x[,3]=="F",4]
+  x[x[,3]=="F",6] <- x[x[,3]=="F",2]
+  x[x[,3]=="F",5] <- x[x[,3]=="F",4]
   #Comp R
   x[,8] <- as.character(x[match(x[,4],x[,2]),3])
   x[,9] <- as.character(x[match(x[,4],x[,2]),4])

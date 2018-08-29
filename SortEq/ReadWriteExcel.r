@@ -44,9 +44,8 @@ library(readxl)
 dataInExcel <- read_xlsx("database/REPORTE AL 20.08.18.xlsx", col_types = "text")
 View(dataInExcel)
 
-
-
 library(openxlsx)
+options("openxlsx.numFmt" = NULL)
 
 wb1 <- loadWorkbook("database/REPORTE_AL_20.08.18.xlsx")
 
@@ -55,7 +54,10 @@ sheet_names <- names(wb1)
 Sheet1 <- read.xlsx(wb1,sheet_names[1])
 
 names_sheet1 <- names(Sheet1)
-dataInexcel <- Sheet1[,c("Ubicac.técnica","Equipo","Tipo.de.equipo","Equipo.superior")]
+
+
+
+dataInexcel <- (Sheet1[,c("Ubicac.técnica","Equipo","Tipo.de.equipo","Equipo.superior")])
 
 dataOutexcel <- SortOf(dataInexcel)
 

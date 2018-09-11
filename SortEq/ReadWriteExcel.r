@@ -49,22 +49,29 @@ SortOf <- function(x) {
 library(openxlsx)
 options("openxlsx.numFmt" = NULL)
 
-wb1 <- loadWorkbook("database/REPORTE_AL_20.08.18.xlsx")
+#wb1 <- loadWorkbook("database/REPORTE_AL_20.08.18.xlsx")
+
+rute <- "C:/Users/johan/Google Drive/Drive/Worked/Buenaventura/CMMS/bymyown/Reportes/IE05 Analisis v2.xlsx"
+
+wb1 <- loadWorkbook(rute)
 
 sheet_names <- names(wb1)
 
 Sheet1 <- read.xlsx(wb1,sheet_names[1])
+#deleting void columns
+Sheet2 <- Sheet1[,colSums(is.na(Sheet1))<nrow(Sheet1)]
 
 names_sheet1 <- names(Sheet1)
-dataInexcel <- (Sheet1[,c("Ubicac.técnica","Equipo","Tipo.de.equipo","Equipo.superior")])
+dataInexcel <- (Sheet1[,c("Ubicac.tÃ©cnica","Equipo","Tipo.de.equipo","Equipo.superior")])
 #dataInexcel$Equipo <- as.character.numeric_version(dataInexcel$Equipo,strict = TRUE)
 dataOutexcel <- SortOf(dataInexcel)
-sheet1_out <- data.frame(dataOutexcel[,-4:0],Sheet1)
+sheet1_out <- data.frame(dataOutexcel[,-4:0],Sheet2)
+
 
 wb2 <- createWorkbook()
 addWorksheet(wb2,"Eq")
 writeData(wb2,"Eq",sheet1_out,rowNames = FALSE)
 
-saveWorkbook(wb2, "database/REPORTE_AL_20.08.18v2.xlsx", overwrite = TRUE)
+saveWorkbook(wb2, "C:/Users/johan/Google Drive/Drive/Worked/Buenaventura/CMMS/bymyown/Reportes/IE05 Analisis v3.xlsx", overwrite = TRUE)
 
 

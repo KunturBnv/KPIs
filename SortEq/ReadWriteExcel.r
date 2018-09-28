@@ -1,5 +1,5 @@
 
-setwd("GitProjects/KPIs/SortEq/")
+#setwd("GitProjects/KPIs/SortEq/")
 
 #function
 SortOf <- function(x) {
@@ -46,7 +46,7 @@ SortOf <- function(x) {
   return <- x
 }
 
-install.packages("openxlsx")
+#install.packages("openxlsx")
 library(openxlsx)
 options("openxlsx.numFmt" = NULL)
 
@@ -81,7 +81,4 @@ wb2 <- createWorkbook()
 addWorksheet(wb2,"Eq")
 writeData(wb2,"Eq",sheet1_out,rowNames = FALSE)
 
-rutaOut <- "../../../../Desktop/"
-ExcelOutName <- "PRD SAP BV 28.09.2018.xlsx"
-
-saveWorkbook(wb2, paste(rutaOut,ExcelOutName), overwrite = TRUE)
+saveWorkbook(wb2, ruteIn, overwrite = TRUE)

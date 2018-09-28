@@ -52,10 +52,17 @@ options("openxlsx.numFmt" = NULL)
 
 #wb1 <- loadWorkbook("database/REPORTE_AL_20.08.18.xlsx")
 
-ruteIn <- "../../../../Desktop/"
-ExcelInName <- "PRD SAP BV 28.09.2018.xlsx"
+flag <- 0
 
-wb1 <- loadWorkbook(ruteIn + ExcelInName)
+if (flag == 1) {
+  ruteIn <- "../../../../Desktop/"
+  ExcelInName <- "PRD SAP BV 28.09.2018.xlsx"
+  wb1 <- loadWorkbook(ruteIn + ExcelInName)
+}
+if (flag == 0) {
+  ruteIn <- choose.files()
+  wb1 <- loadWorkbook(ruteIn)
+}
 
 sheet_names <- names(wb1)
 
@@ -77,6 +84,4 @@ writeData(wb2,"Eq",sheet1_out,rowNames = FALSE)
 rutaOut <- "../../../../Desktop/"
 ExcelOutName <- "PRD SAP BV 28.09.2018.xlsx"
 
-saveWorkbook(wb2, rutaOut + ExcelOutName, overwrite = TRUE)
-
-
+saveWorkbook(wb2, paste(rutaOut,ExcelOutName), overwrite = TRUE)
